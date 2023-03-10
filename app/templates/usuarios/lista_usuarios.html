@@ -9,6 +9,9 @@
           <div class="panel-heading">{{usuario.username}}</div>
           <div class="panel-body">{{usuario.email}}</div>
           <div class="panel-body">{{usuario.first_name}}</div>
+          <div class="panel-footer">    
+            <a href={% url "lista_usuario" pk=usuario.id %}>Listar</a>             
+          </div>
         </div>
       </div>
     {% endfor %}
