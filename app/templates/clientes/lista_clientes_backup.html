@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% load meus_filtros %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de clientes</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+
+<body>
+    <h1>Listagem de clientes</h1>
+    {# Esse bloco percorre a lista de clientes e imprime seus dados #}
+    {% comment %}
+        Várias
+        linhas
+        de comentários
+        são aceitas
+        dessa forma
+    {% endcomment %}
+    {% for cliente in object_list %}
+        {% with "Programador Engenheiro Designer" as list %}
+            {% if cliente.profissao in list %}
+                {% ifchanged cliente.nome %}
+                    <li>{{ cliente.nome|cut:"a" }}</li>
+                    <li>{{ cliente.email|capfirst }}</li>
+                    <li>{{ cliente.data_nascimento|date:"D d M Y" }}</li>
+                    {% if cliente.profissao == "Programador" %}
+                        <h3><li>{{ cliente.profissao|remover_caracter:"o" }}</li></h3>
+                    {% elif cliente.profissao == "Engenheiro" %}
+                        <h4><li>{{ cliente.profissao|remover_caracter:"o" }}</li></h4>
+                    {% else %}
+                        <li>{{ cliente.profissao|remover_caracter:"o" }}</li>
+                    {% endif %}
+                    <li><a href={% url "lista_cliente" pk=cliente.id %}>Exibir</a></li>
+                    <li><a href={% url "editar_cliente" pk=cliente.id %}>Editar</a></li>
+                    <li><a href={% url "remover_cliente" pk=cliente.id %}>Remover</a></li>
+                    <hr>
+                {% endifchanged %}
+            {% endif %}
+        {% endwith %}
+    {% empty %}
+        <h3>Não há clientes cadastrados</h3>
+    {% endfor %}
+    <li>{{3|add:"2"}}</li>
+    <a href="{% url "cadastrar_cliente" %}">Cadastrar</a>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block 'conteudo' %}
+<div class="container">    
+    <div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">{{cliente.nome}}</div>
+          <div class="panel-body">
+            <li>{{cliente.profissao}}</li>
+            <li>{{cliente.data_nascimento}}</li>
+            <li>{{cliente.email}}</li>
+          </div>
+          <div class="panel-footer">    
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary" value="Remover">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><br>
+{% endblock 'conteudo' %}
+
