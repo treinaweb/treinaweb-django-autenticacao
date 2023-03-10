@@ -12,7 +12,8 @@ from .views.atendente_views import (
 from .views.usuario_views import (
     UsuarioCreateView,
     UsuarioListView,
-    UsuarioDetailView
+    UsuarioDetailView,
+    UsuarioUpdateView
 )
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
     path("form_usuario", UsuarioCreateView.as_view(), name="cadastrar_usuario"),
     path("lista_usuarios", UsuarioListView.as_view(), name="lista_usuarios"),
     path("lista_usuario/<int:pk>", UsuarioDetailView.as_view(), name="lista_usuario"),
+    path("form_usuario/<int:pk>", UsuarioUpdateView.as_view(), name="editar_usuario"),
 
 
 ]
