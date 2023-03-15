@@ -19,7 +19,7 @@
       <p>O melhor sistema para gestão de clientes</p>
     </div>
   </div>
-  
+  {% if user.is_authenticated %}
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -30,18 +30,20 @@
         </button>
         <a class="navbar-brand" href="#">{{ user }}</a>
       </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{% url "lista_clientes" %}">{% translate "Home" %}</a></li>
-          <li><a href="#">{% translate "Products" %}</a></li>
-          <li><a href="#">{% translate "Deals" %}</a></li>
-          <li><a href="#">{% translate "Stores" %}</a></li>
-          <li><a href="#">{% translate "Contact" %}</a></li>
-        </ul>
-      </div>
+      
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url "lista_clientes" %}">{% translate "Home" %}</a></li>
+            <li><a href="{% url "lista_dependentes" %}">Dependentes</a></li>
+            <li><a href="{% url "lista_usuarios" %}">Usuários</a></li>
+            <li><a href="{% url "lista_atendentes" %}">Atendentes</a></li>
+            <li><a href="{% url "deslogar_usuario" %}">Logout</a></li>
+          </ul>
+        </div>
+      
     </div>
   </nav>
-  
+  {% endif %}
   <div class="container">    
     {% block 'conteudo' %}
     {% endblock %}
