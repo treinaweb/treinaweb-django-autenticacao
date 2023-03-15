@@ -16,6 +16,9 @@ from .views.usuario_views import (
     UsuarioUpdateView,
     UsuarioDeleteView
 )
+from .views.autenticao_views import (
+    LoginView
+)
 
 urlpatterns = [
     path("form_cliente", ClienteCreateView.as_view(), name="cadastrar_cliente"),
@@ -32,5 +35,6 @@ urlpatterns = [
     path("lista_usuario/<int:pk>", UsuarioDetailView.as_view(), name="lista_usuario"),
     path("form_usuario/<int:pk>", UsuarioUpdateView.as_view(), name="editar_usuario"),
     path("remover_usuario/<int:pk>", UsuarioDeleteView.as_view(), name="remover_usuario"),
+    path("login_usuario", LoginView.as_view(), name="logar_usuario"),
 
 ]
