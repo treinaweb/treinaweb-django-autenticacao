@@ -1,7 +1,9 @@
 from django.views.generic import View
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class LoginView(View):
     def get(self, request):
@@ -26,3 +28,18 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('lista_usuarios')
+    
+
+class AlterarSenhaView(LoginRequiredMixin, View):
+    def get(self, request):
+        data = {'form': PasswordChangeForm(request.user)}
+        return render(request, 'autenticacao/alterar_senha.html', data)
+    
+    def post(self, request):
+        form_senha = PasswordChangeForm(request.user, request.POST)
+        if form_senha.is_valid():
+            user = form_senha.save()
+            update_session_auth_hash(request, user)
+            return redirect('lista_usuarios')
+        else:
+            return render(request, 'autenticacao/alterar_senha.html', {'form': form_senha})
