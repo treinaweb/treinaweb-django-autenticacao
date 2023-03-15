@@ -1,7 +1,7 @@
 from django.views.generic import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 class LoginView(View):
     def get(self, request):
@@ -20,3 +20,9 @@ class LoginView(View):
             return render(request, 'autenticacao/login_usuario.html', {
                 'form': form_login, 'error': 'Usuário ou senha incorretos'
                 })
+        
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('lista_usuarios')

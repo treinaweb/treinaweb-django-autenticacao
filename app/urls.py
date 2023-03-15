@@ -17,7 +17,8 @@ from .views.usuario_views import (
     UsuarioDeleteView
 )
 from .views.autenticao_views import (
-    LoginView
+    LoginView,
+    LogoutView
 )
 
 urlpatterns = [
@@ -36,5 +37,6 @@ urlpatterns = [
     path("form_usuario/<int:pk>", UsuarioUpdateView.as_view(), name="editar_usuario"),
     path("remover_usuario/<int:pk>", UsuarioDeleteView.as_view(), name="remover_usuario"),
     path("login_usuario", LoginView.as_view(), name="logar_usuario"),
+    path("logout_usuario", LogoutView.as_view(), name="deslogar_usuario"),
 
 ]
