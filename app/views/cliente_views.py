@@ -1,13 +1,15 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from ..models import Cliente
 from ..forms.cliente_forms import ClienteForm, EnderecoForm
 
 # Create your views here.
 
 
-class ClienteCreateView(CreateView):
+class ClienteCreateView(LoginRequiredMixin, CreateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "clientes/form_cliente.html"
@@ -30,13 +32,13 @@ class ClienteCreateView(CreateView):
             return HttpResponseRedirect(reverse("lista_clientes"))
 
 
-class ClienteListView(ListView):
+class ClienteListView(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "clientes/lista_clientes.html"
     queryset = Cliente.objects.filter(profissao="Programador").order_by('-data_nascimento')
 
 # Adicionar um comentário
-class ClienteDetailView(DetailView):
+class ClienteDetailView(LoginRequiredMixin, DetailView):
     model = Cliente
     template_name = "clientes/lista_cliente.html"
     context_object_name = "cliente"
@@ -48,7 +50,7 @@ class ClienteDetailView(DetailView):
 
 
 
-class ClienteUpdateView(UpdateView):
+class ClienteUpdateView(LoginRequiredMixin, UpdateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "clientes/form_cliente.html"
@@ -72,7 +74,7 @@ class ClienteUpdateView(UpdateView):
             return HttpResponseRedirect(reverse("lista_clientes"))
 
 
-class ClienteDeleteView(DeleteView):
+class ClienteDeleteView(LoginRequiredMixin, DeleteView):
     model = Cliente
     template_name = "clientes/remover_cliente.html"
     success_url = reverse_lazy("lista_clientes")
