@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
@@ -59,4 +60,12 @@ class Atendente(models.Model):
 
     class Meta:
         db_table = "app_funcionario"
+
+class User(AbstractUser):
+    CARGO_CHOICES = (
+        (1, "Gerente"),
+        (2, "Atendente")
+    )
+
+    cargo = models.IntegerField(choices=CARGO_CHOICES, null=False, blank=False)
 
