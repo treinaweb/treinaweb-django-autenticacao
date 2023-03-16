@@ -67,5 +67,5 @@ class User(AbstractUser):
         (2, "Atendente")
     )
 
-    cargo = models.IntegerField(choices=CARGO_CHOICES, null=False, blank=False)
+    cargo = models.IntegerField(choices=CARGO_CHOICES, null=True, blank=False)
 
