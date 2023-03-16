@@ -1,19 +1,21 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, UpdateView, DetailView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from ..models import Cliente
 from ..forms.cliente_forms import ClienteForm, EnderecoForm
+from ..mixins import GerentePermissionMixin
 
 # Create your views here.
 
 
-class ClienteCreateView(LoginRequiredMixin, CreateView):
+class ClienteCreateView(GerentePermissionMixin, CreateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "clientes/form_cliente.html"
     success_url = "lista_clientes"
+
 
     def get_context_data(self, **kwargs):
         context = super(ClienteCreateView, self).get_context_data(**kwargs)
@@ -50,7 +52,7 @@ class ClienteDetailView(LoginRequiredMixin, DetailView):
 
 
 
-class ClienteUpdateView(LoginRequiredMixin, UpdateView):
+class ClienteUpdateView(GerentePermissionMixin, UpdateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "clientes/form_cliente.html"
@@ -74,7 +76,7 @@ class ClienteUpdateView(LoginRequiredMixin, UpdateView):
             return HttpResponseRedirect(reverse("lista_clientes"))
 
 
-class ClienteDeleteView(LoginRequiredMixin, DeleteView):
+class ClienteDeleteView(GerentePermissionMixin, DeleteView):
     model = Cliente
     template_name = "clientes/remover_cliente.html"
     success_url = reverse_lazy("lista_clientes")

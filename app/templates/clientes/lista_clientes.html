@@ -18,7 +18,8 @@
     {% endfor %}
     </div>
   </div>
-  <a href="{% url "cadastrar_cliente" %}" class="btn btn-primary">Cadastrar cliente</a>
-
+  {% if user.cargo == 1 %}
+    <a href="{% url "cadastrar_cliente" %}" class="btn btn-primary">Cadastrar cliente</a>
+  {% endif %}
   <br>
 {% endblock 'conteudo' %}
